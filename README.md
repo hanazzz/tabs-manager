@@ -1,4 +1,4 @@
-# tabs-manager
+# Google Chrome Extension: Tabs Manager
 Google Chrome extension to organize your Chrome extension and Chrome Web store documentation tabs.
 
 ## Potential enhancements
