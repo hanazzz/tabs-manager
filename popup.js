@@ -36,3 +36,11 @@ for (const tab of tabs) {
 
 // Add tabs to list
 document.querySelector("ul").append(...elements);
+
+// Button groups all tabs and moves them into current window
+const button = document.querySelector("button");
+button.addEventListener("click", async () => {
+  const tabIds = tabs.map(({ id }) => id);
+  const group = await chrome.tabs.group({ tabIds });
+  await chrome.tabGroups.update(group, { title: "DOCS" });
+});
