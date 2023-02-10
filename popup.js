@@ -38,11 +38,12 @@ for (const tab of tabs) {
 document.querySelector("ul").append(...elements);
 
 let groupId = undefined;
+// Get tab IDs
+const tabIds = tabs.map(({ id }) => id);
 
 // Button groups all tabs and moves them into current window
-const button = document.querySelector("button");
-button.addEventListener("click", async () => {
-  const tabIds = tabs.map(({ id }) => id);
+const groupBtn = document.querySelector("#group-btn");
+groupBtn.addEventListener("click", async () => {
   // Create group and store group ID
   // If groupId is undefined --> group doesn't exist yet --> new group will be created
   // If groupId is a num --> group exists --> add to existing group
@@ -51,4 +52,13 @@ button.addEventListener("click", async () => {
   await chrome.tabGroups.update(
     groupId,
     { title: "GOOGLE DEV", color: "blue" });
+});
+
+// Button ungroups all tabs
+const ungroupBtn = document.querySelector("#ungroup-btn");
+ungroupBtn.addEventListener("click", async () => {
+  // Ungroup tabs
+  await chrome.tabs.ungroup(tabIds);
+  // Clear groupId
+  groupId = undefined;
 });
