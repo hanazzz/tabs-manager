@@ -37,10 +37,18 @@ for (const tab of tabs) {
 // Add tabs to list
 document.querySelector("ul").append(...elements);
 
+let groupId = undefined;
+
 // Button groups all tabs and moves them into current window
 const button = document.querySelector("button");
 button.addEventListener("click", async () => {
   const tabIds = tabs.map(({ id }) => id);
-  const group = await chrome.tabs.group({ tabIds });
-  await chrome.tabGroups.update(group, { title: "DOCS" });
+  // Create group and store group ID
+  // If groupId is undefined --> group doesn't exist yet --> new group will be created
+  // If groupId is a num --> group exists --> add to existing group
+  groupId = await chrome.tabs.group({ groupId, tabIds });
+  // Set title and color of group
+  await chrome.tabGroups.update(
+    groupId,
+    { title: "GOOGLE DEV", color: "blue" });
 });
